@@ -1,0 +1,17 @@
+Fortran routines that can be used to run the random forest within GEOS-Chem.
+It should be noted that this is a very crude implementation that is not faster
+than the actual chemical integrator!
+
+chml_mod.F90 is the main module. It defines the random forest and makes the predictions.
+The location for the ascii files with all random forest information (created by rf_train.py)
+is currently hardcoded at the beginnig of this module.
+
+chemistry_mod.F is the modified GEOS-Chem routine containing the hooks to chml_mod.F90.
+The hardcoded parameter DoRF can be used to switch the random forest emulator on/off.
+In addition to the calls to the random forest model there is also code to generate all
+data necessary for ML training. These data are filled into the public arrays defined at
+the beginning of the module. If run as part of an offline CTM, these arrays need to be
+manually output to bpch or netCDF format.
+
+---------------------------
+christoph.a.keller@nasa.gov
